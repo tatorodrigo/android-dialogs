@@ -8,7 +8,7 @@ ext {
     libraryName = 'dialogs'
     artifact = 'dialogs'
 
-    libraryDescription = 'Some handy dialogs fragments for Android'
+    libraryDescription = 'Some handy fragment dialogs for Android'
 
     siteUrl = 'https://github.com/tatorodrigo/android-dialogs'
     gitUrl = 'https://github.com/tatorodrigo/android-dialogs.git'

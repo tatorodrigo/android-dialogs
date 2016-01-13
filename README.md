@@ -1,2 +1,2 @@
 # android-dialogs
-Some handy dialogs fragments.
+Some handy fragment dialogs for Android.
