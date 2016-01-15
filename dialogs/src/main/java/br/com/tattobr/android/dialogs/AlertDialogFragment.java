@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class AlertDialogFragment extends DialogFragment {
-    public interface IAlertDialogFragment {
+    public interface AlertDialogFragmentListener {
         void onAlertDialogNegativeButton(int tag, boolean checked, Bundle params);
 
         void onAlertDialogPositiveButton(int tag, boolean checked, Bundle params);
@@ -206,8 +206,8 @@ public class AlertDialogFragment extends DialogFragment {
 
         builder.setPositiveButton(positiveButton == null ? getString(android.R.string.yes) : positiveButton, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                if (getActivity() instanceof IAlertDialogFragment) {
-                    ((IAlertDialogFragment) getActivity()).onAlertDialogPositiveButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
+                if (getActivity() instanceof AlertDialogFragmentListener) {
+                    ((AlertDialogFragmentListener) getActivity()).onAlertDialogPositiveButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
                 }
             }
         });
@@ -215,8 +215,8 @@ public class AlertDialogFragment extends DialogFragment {
         if (args.getBoolean(SHOW_NEGATIVE_BUTTON, false)) {
             builder.setNegativeButton(negativeButton == null ? getString(android.R.string.no) : negativeButton, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    if (getActivity() instanceof IAlertDialogFragment) {
-                        ((IAlertDialogFragment) getActivity()).onAlertDialogNegativeButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
+                    if (getActivity() instanceof AlertDialogFragmentListener) {
+                        ((AlertDialogFragmentListener) getActivity()).onAlertDialogNegativeButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
                     }
                 }
             });
