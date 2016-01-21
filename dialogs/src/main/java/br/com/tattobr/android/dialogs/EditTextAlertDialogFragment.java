@@ -44,7 +44,10 @@ public class EditTextAlertDialogFragment extends DialogFragment {
         textInputLayout.setHint(getString(args.getInt(MESSAGE)));
         editText.setText(args.getString(TEXT));
 
-        builder.setTitle(args.getInt(TITLE));
+        int title = args.getInt(TITLE);
+        if (title != 0) {
+            builder.setTitle(title);
+        }
         builder.setView(view);
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
