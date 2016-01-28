@@ -86,10 +86,10 @@ public class AlertDialogFragment extends DialogFragment {
     }
 
     public static AlertDialogFragment newInstance(int tag, String title, String message, boolean showNegativeButton) {
-        return newInstance(tag, title, message, showNegativeButton, true, true, null);
+        return newInstance(tag, title, message, false, showNegativeButton, true, true, null);
     }
 
-    public static AlertDialogFragment newInstance(int tag, String title, String message, boolean showNegativeButton, boolean cancelable, boolean cancelOnTouchOutside, Bundle params) {
+    public static AlertDialogFragment newInstance(int tag, String title, String message, boolean checkboxChecked, boolean showNegativeButton, boolean cancelable, boolean cancelOnTouchOutside, Bundle params) {
         AlertDialogFragment frag = new AlertDialogFragment();
 
         Bundle args = new Bundle();
@@ -97,6 +97,7 @@ public class AlertDialogFragment extends DialogFragment {
         args.putString(TITLE, title);
         args.putString(MESSAGE, message);
         args.putBoolean(SHOW_CHECKBOX, false);
+        args.putBoolean(CHECKBOX_CHECKED, checkboxChecked);
         args.putBoolean(SHOW_NEGATIVE_BUTTON, showNegativeButton);
         args.putBoolean(TITLE_MESSAGE_AS_STRING, true);
         args.putBoolean(CANCELABLE, cancelable);
@@ -135,10 +136,10 @@ public class AlertDialogFragment extends DialogFragment {
 
 
     public static AlertDialogFragment newInstance(int tag, String title, String message, int checkbox) {
-        return newInstance(tag, title, message, checkbox, true, true, true, null);
+        return newInstance(tag, title, message, checkbox, false, true, true, true, null);
     }
 
-    public static AlertDialogFragment newInstance(int tag, String title, String message, int checkbox, boolean showNegativeButton, boolean cancelable, boolean cancelOnTouchOutside, Bundle params) {
+    public static AlertDialogFragment newInstance(int tag, String title, String message, int checkbox, boolean checkboxChecked,  boolean showNegativeButton, boolean cancelable, boolean cancelOnTouchOutside, Bundle params) {
         AlertDialogFragment frag = new AlertDialogFragment();
 
         Bundle args = new Bundle();
@@ -147,6 +148,7 @@ public class AlertDialogFragment extends DialogFragment {
         args.putString(MESSAGE, message);
         args.putInt(CHECKBOX, checkbox);
         args.putBoolean(SHOW_CHECKBOX, true);
+        args.putBoolean(CHECKBOX_CHECKED, checkboxChecked);
         args.putBoolean(SHOW_NEGATIVE_BUTTON, showNegativeButton);
         args.putBoolean(TITLE_MESSAGE_AS_STRING, true);
         args.putBoolean(CANCELABLE, cancelable);
@@ -209,6 +211,9 @@ public class AlertDialogFragment extends DialogFragment {
                 if (getActivity() instanceof AlertDialogFragmentListener) {
                     ((AlertDialogFragmentListener) getActivity()).onAlertDialogPositiveButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
                 }
+                if (getParentFragment() instanceof AlertDialogFragmentListener) {
+                    ((AlertDialogFragmentListener) getParentFragment()).onAlertDialogPositiveButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
+                }
             }
         });
 
@@ -217,6 +222,9 @@ public class AlertDialogFragment extends DialogFragment {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     if (getActivity() instanceof AlertDialogFragmentListener) {
                         ((AlertDialogFragmentListener) getActivity()).onAlertDialogNegativeButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
+                    }
+                    if (getParentFragment() instanceof AlertDialogFragmentListener) {
+                        ((AlertDialogFragmentListener) getParentFragment()).onAlertDialogNegativeButton(args.getInt(TAG), checkBoxView.isChecked(), args.getBundle(PARAMS));
                     }
                 }
             });
